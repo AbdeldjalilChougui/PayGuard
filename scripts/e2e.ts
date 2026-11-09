@@ -4,9 +4,8 @@
 //   pnpm e2e            (server at http://localhost:4000)
 //   E2E_BASE=https://… pnpm e2e
 import assert from "node:assert/strict";
-import { BN } from "@anchor-lang/core";
 import { PublicKey } from "@solana/web3.js";
-import { PayGuardAgent, encodeHeader, send, fetchVendor, fromHex, type PaymentRequired, type Purchase } from "@payguard/sdk";
+import { BN, PayGuardAgent, encodeHeader, send, fetchVendor, fromHex, type PaymentRequired, type Purchase } from "@payguard/sdk";
 import { VENDORS } from "../server/catalog.js";
 import { connection, loadConfig } from "../server/env.js";
 import { addDemoAgent, fund, keypair } from "./setup.js";

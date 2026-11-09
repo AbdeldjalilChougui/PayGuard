@@ -4,6 +4,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import * as anchor from "@anchor-lang/core";
 import { Connection, Keypair } from "@solana/web3.js";
 import { config as loadEnv } from "dotenv";
 
@@ -78,3 +79,8 @@ export function writeConfig(cfg: Config) {
   writeFileSync(CONFIG_PATH, text);
   writeFileSync(WEB_CONFIG_PATH, text);
 }
+
+// Anchor's Node build is CommonJS; Node 22 does not see its named exports.
+type WalletClass = typeof anchor.Wallet;
+const anchorMod = anchor as unknown as { Wallet?: WalletClass; default?: { Wallet?: WalletClass } };
+export const Wallet: WalletClass = (anchorMod.Wallet ?? anchorMod.default?.Wallet)!;

@@ -1,6 +1,6 @@
 // Agent side: pay x402 invoices through a PayGuard vault, check what the
 // vendor delivered, then accept, dispute or wait for the refund.
-import { BN } from "@anchor-lang/core";
+import { BN } from "./bn.js";
 import { createAssociatedTokenAccountIdempotentInstruction, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { Connection, Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
 import {

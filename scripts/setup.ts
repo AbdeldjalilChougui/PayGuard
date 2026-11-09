@@ -4,15 +4,14 @@
 // is never needed by the server.
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { BN, Wallet } from "@anchor-lang/core";
 import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
 import { Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
 import {
-  PROGRAM_ID, agentPda, fetchAgent, fetchVault, fetchVendor, getProgram, toUnits, vaultPda, vaultTokenOf, vendorPda,
+  BN, PROGRAM_ID, agentPda, fetchAgent, fetchVault, fetchVendor, getProgram, toUnits, vaultPda, vaultTokenOf, vendorPda,
 } from "@payguard/sdk";
 import { ATTACKER_VENDOR, DEMO_RULES, VENDORS } from "../server/catalog.js";
 import {
-  BASE_URL, CONFIG_PATH, PUBLIC_RPC, RPC_URL, type Config, connection, hasKey, keyPath, loadConfig, loadKey, readKeypair,
+  BASE_URL, CONFIG_PATH, Wallet, PUBLIC_RPC, RPC_URL, type Config, connection, hasKey, keyPath, loadConfig, loadKey, readKeypair,
   writeConfig,
 } from "../server/env.js";
 import os from "node:os";

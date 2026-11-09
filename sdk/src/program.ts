@@ -1,5 +1,6 @@
 // Accounts, PDAs and reads. Works in Node and in the browser.
-import { AnchorProvider, BN, Program, type Idl, type Wallet } from "@anchor-lang/core";
+import { AnchorProvider, Program, type Idl, type Wallet } from "@anchor-lang/core";
+import { BN } from "./bn.js";
 import { getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { Connection, PublicKey, type Commitment } from "@solana/web3.js";
 import idlJson from "./idl/payguard.json" with { type: "json" };

@@ -3,10 +3,9 @@
 import { mkdirSync, renameSync } from "node:fs";
 import path from "node:path";
 import { PublicKey } from "@solana/web3.js";
-import { Wallet } from "@anchor-lang/core";
 import { fetchVault, getProgram } from "@payguard/sdk";
 import { VENDORS } from "../server/catalog.js";
-import { connection, hasKey, keyPath, loadConfig, loadKey, writeConfig } from "../server/env.js";
+import { Wallet, connection, hasKey, keyPath, loadConfig, loadKey, writeConfig } from "../server/env.js";
 import { addDemoAgent, fund, keypair } from "./setup.js";
 
 async function main() {
