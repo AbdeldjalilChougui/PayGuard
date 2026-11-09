@@ -1,0 +1,51 @@
+# Render Blueprint: the whole of PayGuard on the free plan.
+#   1. payguard-server: one Node web service (vendors, agent, faucet, crank)
+#   2. payguard-web:    the dashboard, a static site
+# Secrets (sync: false) are asked for when you create the Blueprint.
+# See docs/DEPLOY_RENDER.md.
+services:
+  - type: web
+    name: payguard-server
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm server
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-flash-lite-latest
+      # Helius devnet URL (keeps the key out of the repo).
+      - key: SOLANA_RPC_URL
+        sync: false
+      # This service's own URL, e.g. https://payguard-server.onrender.com
+      - key: PUBLIC_BASE_URL
+        sync: false
+      # Output of `pnpm keys:export` (devnet demo keys only).
+      - key: PAYGUARD_KEYS
+        sync: false
+      - key: AGENT_RUNS_PER_HOUR
+        value: "30"
+      - key: FAUCET_PER_HOUR
+        value: "10"
+
+  - type: web
+    name: payguard-web
+    runtime: static
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter web build
+    staticPublishPath: web/dist
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Devnet-only RPC key: it ships to the browser.
+      - key: VITE_RPC_URL
+        sync: false
+      # The server's URL, e.g. https://payguard-server.onrender.com
+      - key: VITE_API_URL
+        sync: false

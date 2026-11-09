@@ -1,0 +1,19 @@
+skip_local_validator = true
+
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+payguard = "8xUaJB1cqfbZhBC2x5yEdChQkLGy7XrNzqDAFnqUtR2e"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "pnpm e2e"
+
+[hooks]

@@ -1,0 +1,96 @@
+{
+  "rpc": "https://api.devnet.solana.com",
+  "programId": "8xUaJB1cqfbZhBC2x5yEdChQkLGy7XrNzqDAFnqUtR2e",
+  "mint": "5GTtyULX5sdeXpF9rfzALAeEfM4vcbRrrkGtwaKcMfYi",
+  "decimals": 6,
+  "symbol": "dUSDC",
+  "owner": "6oerfs4wfeAohawoQezgGd7NMq7ufHaTCzSw2ua2xnTy",
+  "vault": "AMKdmWCkoEhbN3siePASLMqskThFKhEGVsrpwURiAipz",
+  "agent": "HCiS6nmzYzsh5Ux3DaNBpCgwRtDLvw45i6fwLMhAJdo4",
+  "agentPolicy": "Gia21ekCUdGqGKhh8bZ1o2GC2C3woNpYwvArHyi2xZ53",
+  "attacker": "Dgx6b7WZNBkDh6VXZo1VAreLUJu3Mv9RyY6XSiyw5jwQ",
+  "crank": "fDuREvKvKytR3wu6Tbc2HCAef2bTWrRHotjEtecViPf",
+  "receiptTimeout": 20,
+  "disputeWindow": 15,
+  "vendors": {
+    "prices": {
+      "name": "CoinData Pro",
+      "authority": "8eYdDoc1gWeBun7NTDHE3ZxgZ9Ek2uuyfxd4Jf3K7tXV",
+      "pda": "D3JWddsR7xtQqwinaCxT1Ct2E1NHY9MNcbT7oVMCfQMH",
+      "price": 0.05,
+      "path": "/v/prices?ids=solana,bitcoin",
+      "approved": true,
+      "dailyCap": 0.5
+    },
+    "lookalike": {
+      "name": "CoinDatas Pro",
+      "authority": "6WyxRTsTbZGV24ZbqEuo3eGXm93JREVpb51afMphG1sk",
+      "pda": "52pV6rTFudY47pXUFd1BzhrD97uQ4ZWtJy6abaRv3pBY",
+      "price": 0.025,
+      "path": "/v/prices-discount?ids=solana,bitcoin",
+      "approved": false
+    },
+    "articles": {
+      "name": "Market Wire",
+      "authority": "CJ1AqzX8KT4kepe9tGFsQyYWHCcBADY9ki3nTB8HNPbs",
+      "pda": "8L113isRosowu3hMxE4pgPURheHfDRGAKpx59Qn27RKX",
+      "price": 0.1,
+      "path": "/v/articles?q=solana",
+      "approved": true,
+      "dailyCap": 0.5
+    },
+    "fx": {
+      "name": "FX Rates",
+      "authority": "FK2bRVEtwJn2VzdXStdtc6Vm7ogoSi1LKn8mkhABiu3R",
+      "pda": "C7oVteWenZ5y23sf7GhbepX4etQQpcp1veBP5PLQsVvE",
+      "price": 0.02,
+      "path": "/v/fx?base=USD&to=EUR",
+      "approved": true,
+      "dailyCap": 0.2
+    },
+    "weather": {
+      "name": "Weather Now",
+      "authority": "ETAGNzHBWGZEjvhCRJP6VLNQWigHbdtxNAepFViXJbT8",
+      "pda": "ggxQPnh4kBknC27yCSKA6pqby55GT65x94ni4xGU8FB",
+      "price": 0.05,
+      "path": "/v/weather?city=Algiers",
+      "approved": true,
+      "dailyCap": 0.2
+    },
+    "ticker": {
+      "name": "LiveTicker",
+      "authority": "GjgQtYDQ3MnE2wk4Z5N7A2rJTxXBUrkSrJBJma3iYBEW",
+      "pda": "91bZsw8Bco9BdxvVKLcMCYs5xJ9mryWFtRBpzLV4EhNB",
+      "price": 0.45,
+      "path": "/v/ticker?ids=solana",
+      "approved": true,
+      "dailyCap": 1
+    },
+    "ghost": {
+      "name": "QuickQuote",
+      "authority": "7VCXxWcvsJM929SrxsKExZiWBb4SjdbT9oxc1qn19dYB",
+      "pda": "EuKvMge1wRRA1soDtmr7oN52mEGPgveN7otMXcN9Sys2",
+      "price": 0.05,
+      "path": "/v/quote?ids=solana",
+      "approved": true,
+      "dailyCap": 0.2
+    },
+    "junk": {
+      "name": "DailyDigest",
+      "authority": "DTECdmWxhGb5eyCKzmJqrvkFzmNsCGHktJML4iKhqC4s",
+      "pda": "Fq6FiXpmRRhuSuQyHHxdPRvtQirzAxMpQQegu2zbBkm6",
+      "price": 0.08,
+      "path": "/v/digest?topic=crypto",
+      "approved": true,
+      "dailyCap": 0.3
+    },
+    "attacker": {
+      "name": "Totally Legit API",
+      "authority": "Dgx6b7WZNBkDh6VXZo1VAreLUJu3Mv9RyY6XSiyw5jwQ",
+      "pda": "FwbkqfV81KTExEMbyRPMjfCch4VEfV4nuiXNeYQ4cjHF",
+      "price": 1000,
+      "path": "/v/legit",
+      "approved": false
+    }
+  }
+}

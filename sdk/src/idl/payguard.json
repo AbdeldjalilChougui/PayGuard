@@ -1,0 +1,1816 @@
+{
+  "address": "8xUaJB1cqfbZhBC2x5yEdChQkLGy7XrNzqDAFnqUtR2e",
+  "metadata": {
+    "name": "payguard",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "PayGuard: on-chain spending policy for AI agent wallets"
+  },
+  "instructions": [
+    {
+      "name": "accept",
+      "docs": [
+        "The agent is happy with the response: pay the vendor now."
+      ],
+      "discriminator": [
+        65,
+        150,
+        70,
+        216,
+        133,
+        6,
+        107,
+        4
+      ],
+      "accounts": [
+        {
+          "name": "agent",
+          "signer": true,
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "agent_policy",
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault_token",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vendor",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vendor_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "add_agent",
+      "discriminator": [
+        214,
+        206,
+        14,
+        110,
+        178,
+        131,
+        218,
+        45
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "agent"
+        },
+        {
+          "name": "agent_policy",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  103,
+                  101,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              },
+              {
+                "kind": "account",
+                "path": "agent"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "per_tx_cap",
+          "type": "u64"
+        },
+        {
+          "name": "daily_limit",
+          "type": "u64"
+        },
+        {
+          "name": "rules",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "VendorRuleInput"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_vault",
+      "docs": [
+        "Creates the owner's vault for one token, with its escrow timings."
+      ],
+      "discriminator": [
+        29,
+        237,
+        247,
+        208,
+        193,
+        82,
+        54,
+        135
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_token",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "vault"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "receipt_timeout",
+          "type": "i64"
+        },
+        {
+          "name": "dispute_window",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault_token",
+          "writable": true
+        },
+        {
+          "name": "owner_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "dispute",
+      "docs": [
+        "The agent rejects what it got: the money goes back to the vault."
+      ],
+      "discriminator": [
+        216,
+        92,
+        128,
+        146,
+        202,
+        85,
+        135,
+        73
+      ],
+      "accounts": [
+        {
+          "name": "agent",
+          "signer": true,
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "agent_policy",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vendor",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "open_escrow",
+      "docs": [
+        "The agent's only way to spend. Every rule is checked here, then the",
+        "amount is locked in the vault until the vendor delivers."
+      ],
+      "discriminator": [
+        82,
+        178,
+        155,
+        253,
+        74,
+        41,
+        161,
+        219
+      ],
+      "accounts": [
+        {
+          "name": "agent",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "vault_token"
+        },
+        {
+          "name": "agent_policy",
+          "writable": true
+        },
+        {
+          "name": "vendor",
+          "writable": true
+        },
+        {
+          "name": "escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "agent_policy"
+              },
+              {
+                "kind": "arg",
+                "path": "nonce"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "nonce",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "post_receipt",
+      "docs": [
+        "The vendor commits to what it delivered. Only works once per escrow,",
+        "which makes every payment single-use."
+      ],
+      "discriminator": [
+        251,
+        178,
+        78,
+        19,
+        254,
+        190,
+        156,
+        220
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "vendor"
+          ]
+        },
+        {
+          "name": "vendor",
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "escrow",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "receipt_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "refund_expired",
+      "docs": [
+        "Anyone can refund an escrow the vendor never answered."
+      ],
+      "discriminator": [
+        118,
+        153,
+        164,
+        244,
+        40,
+        128,
+        242,
+        250
+      ],
+      "accounts": [
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "agent_policy",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vendor",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "register_vendor",
+      "docs": [
+        "Anyone can list a service. Approval is each owner's decision."
+      ],
+      "discriminator": [
+        192,
+        133,
+        122,
+        251,
+        31,
+        137,
+        113,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vendor",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  101,
+                  110,
+                  100,
+                  111,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "u64"
+        },
+        {
+          "name": "pay_to",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "release",
+      "docs": [
+        "Anyone can pay the vendor once the dispute window has closed."
+      ],
+      "discriminator": [
+        253,
+        249,
+        15,
+        206,
+        28,
+        127,
+        193,
+        241
+      ],
+      "accounts": [
+        {
+          "name": "escrow",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vault_token",
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vendor",
+          "writable": true,
+          "relations": [
+            "escrow"
+          ]
+        },
+        {
+          "name": "vendor_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_agent_paused",
+      "discriminator": [
+        156,
+        197,
+        182,
+        170,
+        124,
+        76,
+        118,
+        195
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "agent_policy",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_vault_paused",
+      "docs": [
+        "Kill switch for every agent of the vault."
+      ],
+      "discriminator": [
+        239,
+        131,
+        203,
+        69,
+        243,
+        11,
+        234,
+        153
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "update_agent",
+      "docs": [
+        "Replaces caps and rules; today's spend is kept for vendors that stay."
+      ],
+      "discriminator": [
+        85,
+        2,
+        178,
+        9,
+        119,
+        139,
+        102,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "relations": [
+            "agent_policy"
+          ]
+        },
+        {
+          "name": "agent_policy",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "per_tx_cap",
+          "type": "u64"
+        },
+        {
+          "name": "daily_limit",
+          "type": "u64"
+        },
+        {
+          "name": "rules",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "VendorRuleInput"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_vault_timing",
+      "discriminator": [
+        116,
+        222,
+        156,
+        2,
+        163,
+        252,
+        216,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "receipt_timeout",
+          "type": "i64"
+        },
+        {
+          "name": "dispute_window",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "update_vendor",
+      "discriminator": [
+        46,
+        80,
+        34,
+        41,
+        191,
+        194,
+        70,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "vendor"
+          ]
+        },
+        {
+          "name": "vendor",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "u64"
+        },
+        {
+          "name": "active",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "docs": [
+        "The owner can take back anything not promised to a vendor."
+      ],
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "mint",
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault_token",
+          "writable": true
+        },
+        {
+          "name": "owner_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AgentPolicy",
+      "discriminator": [
+        148,
+        193,
+        218,
+        129,
+        21,
+        96,
+        195,
+        77
+      ]
+    },
+    {
+      "name": "Escrow",
+      "discriminator": [
+        31,
+        213,
+        123,
+        187,
+        186,
+        22,
+        218,
+        155
+      ]
+    },
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    },
+    {
+      "name": "Vendor",
+      "discriminator": [
+        87,
+        248,
+        121,
+        239,
+        24,
+        112,
+        197,
+        200
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AgentUpdated",
+      "discriminator": [
+        210,
+        179,
+        162,
+        250,
+        123,
+        250,
+        210,
+        166
+      ]
+    },
+    {
+      "name": "EscrowOpened",
+      "discriminator": [
+        201,
+        42,
+        96,
+        8,
+        123,
+        9,
+        212,
+        164
+      ]
+    },
+    {
+      "name": "EscrowRefunded",
+      "discriminator": [
+        132,
+        209,
+        49,
+        109,
+        135,
+        138,
+        28,
+        81
+      ]
+    },
+    {
+      "name": "EscrowReleased",
+      "discriminator": [
+        131,
+        7,
+        138,
+        104,
+        166,
+        190,
+        113,
+        112
+      ]
+    },
+    {
+      "name": "ReceiptPosted",
+      "discriminator": [
+        245,
+        48,
+        12,
+        247,
+        35,
+        205,
+        135,
+        78
+      ]
+    },
+    {
+      "name": "VaultUpdated",
+      "discriminator": [
+        93,
+        187,
+        145,
+        216,
+        134,
+        201,
+        3,
+        105
+      ]
+    },
+    {
+      "name": "VendorUpdated",
+      "discriminator": [
+        221,
+        198,
+        132,
+        235,
+        65,
+        173,
+        175,
+        34
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "VaultPaused",
+      "msg": "Vault is paused by its owner"
+    },
+    {
+      "code": 6001,
+      "name": "AgentPaused",
+      "msg": "Agent is paused by its owner"
+    },
+    {
+      "code": 6002,
+      "name": "VendorNotAllowed",
+      "msg": "Vendor is not approved for this agent"
+    },
+    {
+      "code": 6003,
+      "name": "VendorInactive",
+      "msg": "Vendor listing is inactive"
+    },
+    {
+      "code": 6004,
+      "name": "OverListedPrice",
+      "msg": "Amount is above the vendor's listed price"
+    },
+    {
+      "code": 6005,
+      "name": "OverPerTxCap",
+      "msg": "Amount exceeds the per-payment cap"
+    },
+    {
+      "code": 6006,
+      "name": "OverDailyLimit",
+      "msg": "Amount would exceed the agent's daily limit"
+    },
+    {
+      "code": 6007,
+      "name": "OverVendorBudget",
+      "msg": "Amount would exceed this vendor's daily budget"
+    },
+    {
+      "code": 6008,
+      "name": "ZeroAmount",
+      "msg": "Amount must be greater than zero"
+    },
+    {
+      "code": 6009,
+      "name": "TooManyRules",
+      "msg": "At most 8 vendor rules"
+    },
+    {
+      "code": 6010,
+      "name": "DuplicateRule",
+      "msg": "A vendor appears twice in the rules"
+    },
+    {
+      "code": 6011,
+      "name": "CapAboveDailyLimit",
+      "msg": "Per-payment cap cannot exceed the daily limit"
+    },
+    {
+      "code": 6012,
+      "name": "BadWindow",
+      "msg": "Window must be between 5 seconds and 7 days"
+    },
+    {
+      "code": 6013,
+      "name": "TextTooLong",
+      "msg": "Name or URL is too long"
+    },
+    {
+      "code": 6014,
+      "name": "WrongMint",
+      "msg": "Vendor accepts a different token"
+    },
+    {
+      "code": 6015,
+      "name": "FundsLocked",
+      "msg": "Withdrawal would touch funds locked in escrow"
+    },
+    {
+      "code": 6016,
+      "name": "WrongEscrowState",
+      "msg": "Escrow is not in the right state for this action"
+    },
+    {
+      "code": 6017,
+      "name": "ReceiptTooLate",
+      "msg": "Receipt deadline has passed"
+    },
+    {
+      "code": 6018,
+      "name": "NotExpired",
+      "msg": "Receipt deadline has not passed yet"
+    },
+    {
+      "code": 6019,
+      "name": "DisputeWindowClosed",
+      "msg": "Dispute window has closed"
+    },
+    {
+      "code": 6020,
+      "name": "DisputeWindowOpen",
+      "msg": "Dispute window is still open"
+    }
+  ],
+  "types": [
+    {
+      "name": "AgentPolicy",
+      "docs": [
+        "What one agent key may spend from a vault."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent",
+            "type": "pubkey"
+          },
+          {
+            "name": "per_tx_cap",
+            "type": "u64"
+          },
+          {
+            "name": "daily_limit",
+            "type": "u64"
+          },
+          {
+            "name": "spent_today",
+            "type": "u64"
+          },
+          {
+            "name": "day_start",
+            "type": "i64"
+          },
+          {
+            "name": "total_spent",
+            "type": "u64"
+          },
+          {
+            "name": "total_refunded",
+            "type": "u64"
+          },
+          {
+            "name": "pay_count",
+            "type": "u64"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "rules",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "VendorRule"
+                }
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AgentUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent_policy",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent",
+            "type": "pubkey"
+          },
+          {
+            "name": "per_tx_cap",
+            "type": "u64"
+          },
+          {
+            "name": "daily_limit",
+            "type": "u64"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Escrow",
+      "docs": [
+        "Money promised to a vendor for one request. Closed on release or refund."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent_policy",
+            "type": "pubkey"
+          },
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "payer",
+            "docs": [
+              "Pays the rent and gets it back when the escrow closes."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "nonce",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          },
+          {
+            "name": "dispute_end",
+            "type": "i64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "EscrowStatus"
+              }
+            }
+          },
+          {
+            "name": "receipt_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowOpened",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent_policy",
+            "type": "pubkey"
+          },
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "nonce",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowRefunded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "reason",
+            "type": {
+              "defined": {
+                "name": "RefundReason"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowReleased",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "early",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Locked"
+          },
+          {
+            "name": "Delivered"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReceiptPosted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "receipt_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "dispute_end",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RefundReason",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Expired"
+          },
+          {
+            "name": "Disputed"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "docs": [
+        "The owner's money. Its associated token account holds the funds; `locked`",
+        "is the part promised to vendors through open escrows."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "locked",
+            "type": "u64"
+          },
+          {
+            "name": "agent_count",
+            "type": "u32"
+          },
+          {
+            "name": "receipt_timeout",
+            "docs": [
+              "Seconds a vendor has to post a receipt after an escrow opens."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "dispute_window",
+            "docs": [
+              "Seconds an agent has to dispute after a receipt."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "receipt_timeout",
+            "type": "i64"
+          },
+          {
+            "name": "dispute_window",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vendor",
+      "docs": [
+        "A marketplace listing. The counters are the vendor's on-chain reputation."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "pay_to",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "sales",
+            "type": "u64"
+          },
+          {
+            "name": "delivered",
+            "type": "u64"
+          },
+          {
+            "name": "refunded",
+            "type": "u64"
+          },
+          {
+            "name": "disputed",
+            "type": "u64"
+          },
+          {
+            "name": "revenue",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VendorRule",
+      "docs": [
+        "One budget line: an approved vendor and its own daily cap (0 = no cap)."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "daily_cap",
+            "type": "u64"
+          },
+          {
+            "name": "spent_today",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VendorRuleInput",
+      "docs": [
+        "Input form of a rule: the counter is kept by the program."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "daily_cap",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VendorUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vendor",
+            "type": "pubkey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ]
+}

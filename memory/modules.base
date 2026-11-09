@@ -1,0 +1,23 @@
+filters:
+  and:
+    - file.inFolder("modules")
+    - file.hasTag("module")
+    - 'file.basename != "_module"'
+
+formulas:
+  days_since_update: 'if(last_updated, (today() - date(last_updated)).days, "")'
+
+properties:
+  formula.days_since_update:
+    displayName: "Days stale"
+  last_updated:
+    displayName: "Last updated"
+
+views:
+  - type: table
+    name: "Modules"
+    order:
+      - file.name
+      - last_updated
+      - formula.days_since_update
+      - related_files

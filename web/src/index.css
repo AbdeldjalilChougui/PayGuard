@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sol-purple: #9945ff;
+  --color-sol-green: #14f195;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #070a12;
+  color: #e5e7eb;
+}
+
+body {
+  background-image:
+    radial-gradient(900px 500px at 10% -10%, rgb(153 69 255 / 0.18), transparent 60%),
+    radial-gradient(700px 400px at 100% 0%, rgb(20 241 149 / 0.1), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+@utility card {
+  @apply rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur;
+}
+
+@utility label {
+  @apply text-xs font-medium uppercase tracking-wider text-slate-400;
+}
+
+@utility input {
+  @apply w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-slate-100 outline-none focus:border-sol-purple;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+@utility btn-primary {
+  @apply btn bg-gradient-to-r from-sol-purple to-sol-green text-black hover:brightness-110;
+}
+
+@utility btn-ghost {
+  @apply btn border border-white/15 bg-white/5 text-slate-100 hover:bg-white/10;
+}
+
+.wallet-adapter-button-trigger {
+  background: linear-gradient(90deg, #9945ff, #14f195) !important;
+  color: #000 !important;
+  border-radius: 0.5rem !important;
+  height: 40px !important;
+  font-size: 14px !important;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-in {
+  animation: slide-in 0.35s ease-out;
+}
